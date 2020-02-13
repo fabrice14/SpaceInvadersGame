@@ -20,6 +20,7 @@ LEVEL = 0
 DIFFICULTY = 20
 SCORE = 0
 GameState = 0
+<<<<<<< HEAD
 DrawScore = False
 Coord = []
 
