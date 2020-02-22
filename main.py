@@ -87,7 +87,6 @@ def draw():
     screen.clear()
     checkDrawScore()
     if GameState == 0:
-        music.play('spaceinvader')
         displayMessage("SPACE INVADERS\nkeys: \nPress SPACE to fire\nPress Shift Left \n for the Shield (3 times per level)\n"
                    "Press Arrow <- and -> to move\nPress Enter to play\n")
         if keyboard.RETURN:
