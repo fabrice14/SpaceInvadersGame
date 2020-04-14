@@ -22,15 +22,11 @@ SCORE = 0
 GameState = 0
 DrawScore = False
 Coord = []
+Life = 2
 
 
-def startGame():
-    global move_delay, move_counter, move_sequence, builder, ship, shield, laserPlayer, counterTime, counter, LEVEL, DIFFICULTY
-    move_counter = move_sequence = counterTime = counter = 0
-    move_delay = 30
-    LEVEL += 1
-    if 5 != DIFFICULTY:
-        DIFFICULTY -= 5
+def initCommon():
+    global builder, ship, shield, laserPlayer
     builder = BuilderList()
     ship = Player(500, 650)
     shield = Shield()
@@ -39,6 +35,22 @@ def startGame():
     builder.removeLasers()
     for i in range(18):
         builder.alien(i)
+
+
+def startGame():
+    global move_delay, move_counter, move_sequence, counterTime, counter, LEVEL, DIFFICULTY
+    move_counter = move_sequence = counterTime = counter = 0
+    move_delay = 30
+    LEVEL += 1
+    if 5 != DIFFICULTY:
+        DIFFICULTY -= 5
+    initCommon()
+
+
+def continueGame():
+    global Life, ship, builder, shield, laserPlayer
+    Life -= 1
+    initCommon()
 
 
 def endGame(text):
@@ -76,17 +88,26 @@ def drawScore():
                      ocolor=(255, 255, 255),
                      color=(255, 64, 0), fontsize=30)
 
+
+def drawLife():
+    global Life
+    screen.draw.text(str(Life), center=(980, 680), owidth=0.5,
+                     ocolor=(255, 255, 255),
+                     color=(255, 64, 0), fontsize=30)
+
 #  pygame thread ###############################################
 #
 #
 
 
 def draw():
-    global LEVEL, counterTime, GameState, DrawScore, counter, Coord
+    global LEVEL, counterTime, GameState, DrawScore, counter, Coord, Life, ship
     screen.blit('background', (0, 0))
     screen.clear()
     checkDrawScore()
+    drawLife()
     if GameState == 0:
+        music.play('spaceinvader')
         displayMessage("SPACE INVADERS\nkeys: \nPress SPACE to fire\nPress Shift Left \n for the Shield (3 times per level)\n"
                    "Press Arrow <- and -> to move\nPress Enter to play\n")
         if keyboard.RETURN:
@@ -101,13 +122,16 @@ def draw():
             shield.getActor().draw()
         scoreUpdate()
         if ship.getStatus() >= 30:
-            endGame("GAME OVER\nPress Enter to play again\n")
+            if Life < 1:
+                endGame("GAME OVER\nPress Enter to play again\n")
+            else:
+                continueGame()
         if len(builder.aliensList.list) == 0:
             newLevel("YOU WON!,\npress return for the next level: "+str(LEVEL+1))
 
 
 def update():
-    global builder, move_counter, move_delay, LEVEL, DIFFICULTY
+    global builder, move_counter, move_delay, LEVEL, DIFFICULTY, Life
     if GameState == 1:
         if ship.getStatus() < 30 and len(builder.aliensList.list) > 0:  # 30 iteration pour avoir un delai d'affichage lent
             verifyKeys()
@@ -195,6 +219,7 @@ def checkDrawScore():
         DrawScore = False
         counter = 0
         Coord = []
+
 
 def draw_aliens():
     global builder
