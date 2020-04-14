@@ -6,7 +6,6 @@ class LaserPlayer(Creator):
 
     def __init__(self):
         self.__laserPlayer = Actor("laser1")
-        print("on instancie un objet LaserPlayer")
         self.__laserPlayer.status = 0
 
     def __del__(self):

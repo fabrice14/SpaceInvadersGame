@@ -1,17 +1,10 @@
-import pgzrun
 import math
-import time
-import pygame.draw_py
-import random
-from pgzero.builtins import music
+import pgzrun
 from random import randint
-from Alien import Alien
 from Player import Player
-from LaserPlayer import LaserPlayer
 from Shield import Shield
-from LaserAlien import LaserAlien
 from BuilderList import BuilderList
-from Liste import Liste
+from LaserPlayer import LaserPlayer
 
 
 WIDTH = 1000
@@ -76,7 +69,7 @@ def scoreUpdate():
 
 def displayMessage(text):
     screen.draw.text(text,
-                     center=(400, 300), owidth=0.5,
+                     center=(500, 300), owidth=0.5,
                      ocolor=(255, 255, 255),
                      color=(255, 64, 0), fontsize=60)
 
@@ -84,6 +77,7 @@ def displayMessage(text):
 def drawScore():
     global DrawScore, Coord
     DrawScore = True
+    # noinspection PyUnresolvedReferences
     screen.draw.text("+200", center=(Coord[0], Coord[1]), owidth=0.5,
                      ocolor=(255, 255, 255),
                      color=(255, 64, 0), fontsize=30)
@@ -107,9 +101,10 @@ def draw():
     checkDrawScore()
     drawLife()
     if GameState == 0:
-        music.play('spaceinvader')
-        displayMessage("SPACE INVADERS\nkeys: \nPress SPACE to fire\nPress Shift Left \n for the Shield (3 times per level)\n"
-                   "Press Arrow <- and -> to move\nPress Enter to play\n")
+        #music.play('spaceinvader')
+        displayMessage("SPACE INVADERS\nkeys: \nPress SPACE to fire\nPress Shift Left "
+                       "\n for the Shield (3 times per level)\n"
+                       "Press Arrow <- and -> to move\nPress Enter to play\n")
         if keyboard.RETURN:
             GameState = 1
     else:
