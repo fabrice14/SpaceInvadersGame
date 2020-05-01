@@ -1,5 +1,6 @@
 from pgzero.builtins import sounds
 from pgzero.builtins import Actor
+from LaserPlayer import LaserPlayer
 from Creator import Creator
 
 
@@ -17,9 +18,13 @@ class LaserAlien(Creator):
         return self.__laserAlien.status
 
     def update(self, y):
+        if y > 5:
+            y = 5
         self.__laserAlien.y += y
         if self.__laserAlien.y > 680:
             self.__laserAlien.status = 0
+
+
 
 
 

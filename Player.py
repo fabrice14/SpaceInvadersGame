@@ -5,6 +5,8 @@ from Creator import Creator
 
 class Player(Creator):
 
+    life = 0
+
     def __init__(self, x, y):
         self.__x = x
         self.__y = y
@@ -12,6 +14,7 @@ class Player(Creator):
         self.__player = Actor(self.__images[0], (self.__x, self.__y))
         self.__player.status = 1
         self.__laserActive = 1
+        self.__player.name = ""
 
     def getActor(self):
         return self.__player
@@ -25,6 +28,14 @@ class Player(Creator):
         if keyboard.left and self.__player.x > 50:
             self.__player.x -= 3
 
+    @staticmethod
+    def lifeupdate():
+        Player.life -= 1
+
+    @staticmethod
+    def lives():
+        return Player.life
+
     @property
     def images(self):
         return self.__images
@@ -36,3 +47,4 @@ class Player(Creator):
     @laserActive.setter
     def laserActive(self, a):
         self.__laserActive = a
+

@@ -24,7 +24,8 @@ class Liste(Generic[T]):
 
     def clearListe(self):
         newList = []
-        for element in self.__liste:
-            if element.getStatus() == 1:
-                newList.append(element)
+        if self.__liste:
+            for element in self.__liste:
+                if element.getStatus() == 1:
+                    newList.append(element)
         return newList

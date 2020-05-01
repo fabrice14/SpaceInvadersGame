@@ -1,4 +1,5 @@
 from pgzero.builtins import Actor
+from pgzero.builtins import sounds
 from Creator import Creator
 
 
@@ -25,3 +26,5 @@ class LaserPlayer(Creator):
         if self.__laserPlayer.status == 1:
             self.__laserPlayer.y -= y
 
+    def GetLaserPlayer(self):
+        return self
