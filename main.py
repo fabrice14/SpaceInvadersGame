@@ -40,7 +40,7 @@ def continueGame():
 def endGame(text):
     global game
     displayMessage(text)
-    if keyboard.ESCAPE:
+    if keyboard.ESCAPE and not keyboard.RETURN:
         game.readhighscores(playername)
         game.writehighscores()
         game.gamestate = 0
@@ -76,7 +76,7 @@ def drawScore():
 
 def drawLife():
     for i in range(Player.lives()):
-        screen.blit('life', (10 + i*40, 10))
+        screen.blit('life', (10 + i * 40, 10))
 
 
 def drawShieldRemaining():
@@ -100,6 +100,7 @@ def drawHighScores():
             counterline += 1
     displayMessage("Press Return to play \n", 500, 650, 50, (0, 0, 0))
 
+
 #  pygame thread ###############################################
 #
 #
@@ -113,7 +114,7 @@ def draw():
     drawLife()
     drawShieldRemaining()
     if game.gamestate == 0:
-        #music.play('spaceinvader')
+        # music.play('spaceinvader')
         displayMessage("SPACE INVADERS\nkeys: \nPress SPACE to fire\nPress Shift Left "
                        "\n for the Shield (3 times per level)\n"
                        "Press Arrow <- and -> to move\nPress Enter to play\n"
@@ -136,12 +137,12 @@ def draw():
                 Player.lifeupdate()
             if Player.lives() < 1:
                 screen.clear()
-                #drawHighScores()
+                game.gamestate = 2
                 endGame("GAME OVER\n Nice Play ! \n Press Escape to play again \n")
             else:
                 continueGame()
         if not builder.aliensList.list:
-            newLevel("YOU WON!,\n press Enter for the next level: "+str(game.level+1))
+            newLevel("YOU WON!,\n press Enter for the next level: " + str(game.level + 1))
 
 
 def update():
@@ -157,7 +158,7 @@ def update():
             if builder.ship.getStatus() > 1:
                 builder.ship.getActor().status += 1
         else:
-            if keyboard.RETURN:
+            if keyboard.RETURN and game.gamestate is not 2:
                 startGame()
 
 
@@ -227,4 +228,3 @@ def draw_lasers():
 startGame()
 
 pgzrun.go()
-
