@@ -41,7 +41,10 @@ class Builder:
         self.lasersList.removeAllElement()
 
     def updateLasers(self):
-        self.laserPlayer.update(5)
+        if game.level <= 6:
+            self.laserPlayer.update(5)
+        else:
+            self.laserPlayer.update(10)
         self.checkLaserHitAlien()
         if self.laserPlayer.getActor().y < 10 and self.ship.laserActive == 0:
             del self.laserPlayer

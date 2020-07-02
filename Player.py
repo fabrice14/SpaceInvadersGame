@@ -16,6 +16,9 @@ class Player(Creator):
         self.__laserActive = 1
         self.__player.name = ""
 
+    def __del__(self):
+        return
+
     def getActor(self):
         return self.__player
 

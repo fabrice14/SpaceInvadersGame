@@ -8,6 +8,9 @@ class Liste(Generic[T]):
     def __init__(self):
         self.__liste = []
 
+    def __del__(self):
+        return
+
     def addElement(self, element: T):
         self.__liste.append(element)
 

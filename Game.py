@@ -9,7 +9,6 @@ class Game:
         self.coord = []
         self.scoreList = []
 
-
     def writehighscores(self):
         with open('high_scores.txt', 'w') as file:
             for data in self.scoreList:

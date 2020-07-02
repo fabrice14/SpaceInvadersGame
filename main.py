@@ -20,7 +20,7 @@ def initCommon():
     builder = Builder()
     builder.removeAliens()
     builder.removeLasers()
-    for i in range(18):
+    for i in range(24):
         builder.alien(i)
 
 
@@ -108,8 +108,8 @@ def drawHighScores():
 
 def draw():
     global counterTime
-    screen.blit('background', (0, 0))
     screen.clear()
+    screen.blit('space', (0, 0))
     checkDrawScore()
     drawLife()
     drawShieldRemaining()

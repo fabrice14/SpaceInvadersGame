@@ -6,16 +6,18 @@ from random import randint
 from pgzero.loaders import sounds
 
 
-
 class Alien(Creator):
 
     def __init__(self, i):
-        self.__x = 250+(i % 6)*100
-        self.__y = 100+(int(i/6)*80)
+        self.__x = 200+(i % 8)*90
+        self.__y = 80+(int(i/8)*80)
         self.__images = ["alien1", "explosion5"]
         self.__alien = Actor(self.__images[0], (self.__x, self.__y))
         self.__alien.status = 1  # draw => visible
         self.__alien.type = 0
+
+    def __del__(self):
+        return
 
     def getActor(self):
         return self.__alien
@@ -27,11 +29,11 @@ class Alien(Creator):
         movex = movey = 0
         if self.__alien.type == 0:
             if move_sequence < 10 or move_sequence > 30:
-                movex = -20
+                movex = -15
             if move_sequence == 10 or move_sequence == 30:
                 movey = 50 + (3 * level)
             if 10 < move_sequence < 30:
-                movex = 20
+                movex = 15
             animate(self.__alien, pos=(self.__alien.x + movex, self.__alien.y + movey), duration=0.5, tween='linear')
             if randint(0, 1) == 0:
                 self.__alien.image = "alien1"

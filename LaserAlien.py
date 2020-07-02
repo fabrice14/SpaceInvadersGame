@@ -11,6 +11,9 @@ class LaserAlien(Creator):
         self.__laserAlien.status = 1  # draw => visible
         sounds.ufo_highpitch.play()
 
+    def __del__(self):
+        return
+
     def getActor(self):
         return self.__laserAlien
 
